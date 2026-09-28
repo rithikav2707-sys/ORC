@@ -1,0 +1,24 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IDE files ###
+.vscode/
+.idea/
+*.iws
+*.iml
+*.ipr
+.classpath
+.project
+.settings/
+
+### H2 Local Data ###
+data/
+*.mv.db
+*.trace.db
+
+### Logs ###
+logs/
+*.log
+.github/modernize/

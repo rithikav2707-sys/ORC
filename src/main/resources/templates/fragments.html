@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<aside th:fragment="sidebar(active)" class="sidebar">
+  <a class="brand" th:href="@{/}"><span class="brand-mark"><i class="bi bi-lightning-charge-fill"></i></span><span><strong>ORC<span class="brand-dot">.</span></strong><small>ENERGY SYSTEMS</small></span></a>
+  <div class="nav-label">WORKSPACE</div>
+  <nav class="side-nav">
+    <a th:classappend="${active == 'dashboard'} ? ' active'" th:href="@{/}"><i class="bi bi-grid-1x2"></i>Dashboard</a>
+    <a sec:authorize="hasRole('ADMIN')" th:classappend="${active == 'turbines'} ? ' active'" th:href="@{/turbines}"><i class="bi bi-gear-wide-connected"></i>ORC System</a>
+    <a sec:authorize="hasRole('ADMIN')" th:classappend="${active == 'telemetry'} ? ' active'" th:href="@{/telemetry}"><i class="bi bi-activity"></i>Telemetry Data</a>
+    <a th:classappend="${active == 'customers'} ? ' active'" th:href="@{/contacts(type='CUSTOMER')}"><i class="bi bi-buildings"></i>Customers</a>
+    <a th:classappend="${active == 'vendors'} ? ' active'" th:href="@{/contacts(type='VENDOR')}"><i class="bi bi-truck"></i>Vendors</a>
+    <a sec:authorize="hasRole('ADMIN')" th:classappend="${active == 'products'} ? ' active'" th:href="@{/products}"><i class="bi bi-box-seam"></i>Products</a>
+  </nav>
+  <div class="nav-label">COMMERCE</div>
+  <nav class="side-nav">
+    <a th:classappend="${active == 'sales-orders'} ? ' active'" th:href="@{/sales-orders}"><i class="bi bi-receipt"></i>Sales Orders</a>
+    <a th:classappend="${active == 'purchase-orders'} ? ' active'" th:href="@{/purchase-orders}"><i class="bi bi-cart3"></i>Purchase Orders</a>
+    <a th:classappend="${active == 'invoices'} ? ' active'" th:href="@{/invoices}"><i class="bi bi-file-earmark-text"></i>Invoices</a>
+    <a th:classappend="${active == 'payments'} ? ' active'" th:href="@{/payments}"><i class="bi bi-cash-stack"></i>Payments</a>
+  </nav>
+  <div class="nav-label">FINANCE</div>
+  <nav class="side-nav">
+    <a sec:authorize="hasRole('ADMIN')" th:classappend="${active == 'accounts'} ? ' active'" th:href="@{/accounts}"><i class="bi bi-list-columns-reverse"></i>Accounts</a>
+    <a sec:authorize="hasRole('ADMIN')" th:classappend="${active == 'budgets'} ? ' active'" th:href="@{/budgets}"><i class="bi bi-pie-chart"></i>Budgets</a>
+    <a th:classappend="${active == 'reports'} ? ' active'" th:href="@{/reports}"><i class="bi bi-bar-chart-line"></i>Reports</a>
+  </nav>
+  <div class="sidebar-bottom"><div class="plant-status"><span class="pulse"></span><span><strong>Unit 02 online</strong><small>Last sync just now</small></span></div>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/settings}" class="side-setting"><i class="bi bi-sliders"></i>Settings</a>
+    <form th:action="@{/logout}" method="post"><button class="side-setting signout" type="submit"><i class="bi bi-box-arrow-left"></i>Sign out</button></form>
+  </div>
+</aside>
+<header th:fragment="topbar" class="topbar">
+  <button class="icon-btn mobile-menu" type="button" aria-label="Open navigation" onclick="document.body.classList.toggle('nav-open')"><i class="bi bi-list"></i></button>
+  <div class="topbar-title"><span>Industrial Waste Heat to Electricity</span><small>ORC (Organic Rankine Cycle) System</small></div>
+  <div class="topbar-right"><div class="date-clock"><span id="top-date"></span><strong id="top-time"></strong></div><button class="icon-btn notification" type="button" title="Notifications"><i class="bi bi-bell"></i><span></span></button><div class="user-chip"><span class="avatar">A</span><span><strong sec:authentication="name">Admin</strong><small sec:authorize="hasRole('ADMIN')">Administrator</small><small sec:authorize="hasRole('ACCOUNTANT')">Accountant</small></span></div></div>
+</header>
+</body>
+</html>
